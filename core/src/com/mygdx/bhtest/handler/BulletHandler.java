@@ -11,12 +11,14 @@ public class BulletHandler {
     private Player player;
 
     private ArrayList<Bullet> bulletsP;
+    private ArrayList<Bullet> bulletsE;
     private int delay;
 
     public BulletHandler(Player player) {
         this.player = player;
 
         bulletsP = new ArrayList<>();
+        bulletsE = new ArrayList<>();
         delay = 0;
     }
 
@@ -26,7 +28,7 @@ public class BulletHandler {
             delay = 0;
         }
         if (InputHandler.Z && delay % 2 == 0) {
-            bulletsP.add(new Bullet(player.getX() + player.getLength()/2 - 2.5f, player.getY()));
+            bulletsP.add(new Bullet(player.getX() + player.getLength()/2 - 2.5f, player.getY(), false));
             delay = 0;
         }
     }

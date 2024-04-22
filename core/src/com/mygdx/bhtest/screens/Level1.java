@@ -34,10 +34,10 @@ public class Level1 implements Screen {
         renderer.setProjectionMatrix(cam.combined);
 
         player = new Player(0f, 0f, 25f, 5, 5, 5);
-        //enemyList.add(new Enemy(-240, 200, 25, 0, -1, 100));
         bulletHandler = new BulletHandler(player);
         enemyHandler = new EnemyHandler(bulletHandler);
-        //enemyHandler.addEnemy(new Enemy(-240, 180, 25, 0, -1, 100));
+
+        HUD.loadPlayer(player);
 
         time = 0;
     }

@@ -55,4 +55,8 @@ public class EnemyHandler {
             enemy.dispose();
         }
     }
+
+    public Enemy getEnemy(int i) {
+        return enemyList.get(i);
+    }
 }

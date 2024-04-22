@@ -6,19 +6,31 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Bullet {
     private float x;
     private float y;
-    private float vel;
+    private boolean enemy;
+    private float velX;
+    private float velY;
 
     private Texture texture;
 
-    public Bullet(float x, float y) {
+    public Bullet(float x, float y, boolean enemy) {
         this.x = x;
         this.y = y;
-        vel = 8;
-        texture = new Texture("red.png");
+        this.enemy = enemy;
+        if (!enemy) {
+            this.velY = 8;
+            this.velX = 0;
+            texture = new Texture("red.png");
+        } else {
+            this.velX = 0;
+            this.velY = 0;
+            texture = new Texture("green.png");
+        }
+
     }
 
     public void updateBullet() {
-        y += vel;
+        x += velX;
+        y += velY;
     }
 
     public void drawBullet(SpriteBatch batch) {
@@ -37,7 +49,11 @@ public class Bullet {
         return x;
     }
 
-    public void setVel(float vel) {
-        this.vel = vel;
+    public void setVelX(float vel) {
+        this.velX = vel;
+    }
+
+    public void setVelY(float vel) {
+        this.velY = vel;
     }
 }
