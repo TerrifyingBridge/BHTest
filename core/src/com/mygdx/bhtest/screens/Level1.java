@@ -9,8 +9,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.HUD;
 import com.mygdx.bhtest.handler.BulletHandler;
+import com.mygdx.bhtest.handler.EnemyHandler;
 import com.mygdx.bhtest.objects.Enemy;
 import com.mygdx.bhtest.objects.Player;
+
+import java.util.ArrayList;
 
 public class Level1 implements Screen {
     private SpriteBatch batch;
@@ -19,7 +22,9 @@ public class Level1 implements Screen {
 
     private Player player;
     private BulletHandler bulletHandler;
-    private Enemy enemy;
+    private EnemyHandler enemyHandler;
+
+    private int time;
 
     public Level1() {
         batch = new SpriteBatch();
@@ -29,9 +34,12 @@ public class Level1 implements Screen {
         renderer.setProjectionMatrix(cam.combined);
 
         player = new Player(0f, 0f, 25f, 5, 5, 5);
+        //enemyList.add(new Enemy(-240, 200, 25, 0, -1, 100));
         bulletHandler = new BulletHandler(player);
+        enemyHandler = new EnemyHandler(bulletHandler);
+        //enemyHandler.addEnemy(new Enemy(-240, 180, 25, 0, -1, 100));
 
-        enemy = new Enemy(-20, -20, 25, 0, 100);
+        time = 0;
     }
 
     @Override
@@ -44,17 +52,25 @@ public class Level1 implements Screen {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (time % 150 == 0) {
+            enemyHandler.addEnemy(new Enemy(-240, 180, 25, 0, -1, 100));
+        }
+
         player.updatePlayer();
         bulletHandler.update();
-        enemy.updateEnemy();
+        enemyHandler.updateEnemies();
 
         batch.begin();
+
         bulletHandler.drawBullets(batch);
         player.renderPlayer(batch);
-        enemy.drawEnemy(batch);
-        batch.end();
+        enemyHandler.drawEnemies(batch);
 
+        //HUD.drawHUD(renderer, batch);
+
+        batch.end();
         HUD.drawHUD(renderer, batch);
+        time++;
     }
 
     @Override
@@ -83,6 +99,7 @@ public class Level1 implements Screen {
         renderer.dispose();
         player.dispose();
         bulletHandler.dispose();
-        enemy.dispose();
+        enemyHandler.dispose();
+        HUD.dispose();
     }
 }

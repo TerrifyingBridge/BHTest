@@ -54,4 +54,8 @@ public class BulletHandler {
             bullet.dispose();
         }
     }
+
+    public ArrayList<Bullet> getBulletsP() {
+        return bulletsP;
+    }
 }

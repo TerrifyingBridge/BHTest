@@ -12,7 +12,6 @@ public class DesktopLauncher {
 		config.setTitle("BHTest");
 		//config.setWindowedMode(640,480);
 		config.setWindowedMode(1280,960);
-		//sdkjhfbjaskhbf
 		new Lwjgl3Application(new BHGame(), config);
 	}
 }

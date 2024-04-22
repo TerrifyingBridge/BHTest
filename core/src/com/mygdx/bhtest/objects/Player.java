@@ -15,6 +15,7 @@ public class Player {
 
     private int lives;
     private int bombs;
+    private int score;
 
     private Texture texture;
 
@@ -26,6 +27,7 @@ public class Player {
         this.lives = lives;
         this.bombs = bombs;
         this.curVelocity = 0;
+        this.score = 0;
 
         texture = new Texture("yellow.png");
     }
