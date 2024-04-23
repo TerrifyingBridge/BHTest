@@ -16,6 +16,9 @@ public class Player {
     private int lives;
     private int bombs;
     private int score;
+    
+    private int bombDelay;
+    private int respawnDelay;
 
     private Texture texture;
 
@@ -28,6 +31,9 @@ public class Player {
         this.bombs = bombs;
         this.curVelocity = 0;
         this.score = 0;
+        
+        bombDelay = 0;
+        respawnDelay = 0;
 
         texture = new Texture("yellow.png");
     }
@@ -52,8 +58,13 @@ public class Player {
         newX /= (float) Math.sqrt(newX*newX + newY*newY);
         newY /= (float) Math.sqrt(newX*newX + newY*newY);
         curVelocity = velocity*(float)Math.sqrt(newX*newX + newY*newY);
-        newX = x + newX*velocity;
-        newY = y + newY*velocity;
+        if (InputHandler.SHIFT) {
+            newX = x + newX*velocity/2;
+            newY = y + newY*velocity/2;
+        } else {
+            newX = x + newX*velocity;
+            newY = y + newY*velocity;
+        }
 
         if (newX <= -1*BHGame.LEVEL_WIDTH/2f + 20) {
             newX = -1*BHGame.LEVEL_WIDTH/2f + 20;
@@ -73,6 +84,16 @@ public class Player {
 
     public void updatePlayer() {
         movePlayer();
+        
+        if (InputHandler.X && bombDelay == 0) {
+            bombs--;
+            bombDelay++;
+        } else if (bombDelay > 0) {
+            bombDelay++;
+            if (bombDelay == 300) {
+                bombDelay = 0;
+            }
+        }
     }
 
     public void renderPlayer(SpriteBatch batch) {

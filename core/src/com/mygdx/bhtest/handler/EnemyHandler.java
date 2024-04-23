@@ -3,16 +3,19 @@ package com.mygdx.bhtest.handler;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.objects.Enemy;
+import com.mygdx.bhtest.objects.Player;
 
 import java.util.ArrayList;
 
 public class EnemyHandler {
     private ArrayList<Enemy> enemyList;
     private BulletHandler bulletHandler;
+    private Player player;
 
-    public EnemyHandler(BulletHandler bulletHandler) {
+    public EnemyHandler(BulletHandler bulletHandler, Player player) {
         this.enemyList = new ArrayList<>();
         this.bulletHandler = bulletHandler;
+        this.player = player;
     }
 
     public void addEnemy(Enemy enemy) {
@@ -29,10 +32,22 @@ public class EnemyHandler {
         }
     }
 
+    private void checkHitWithPlayer(Enemy enemy) {
+        boolean b = !(enemy.getX() < player.getX() + player.getLength() &&
+                enemy.getX() + enemy.getLength() > player.getX() &&
+                enemy.getY() + enemy.getLength() > player.getY() &&
+                enemy.getY() < player.getY() + player.getLength());
+        if (b) {
+            player.setLives(player.getLives()-1);
+            enemy.setHealth(enemy.getHealth()-100);
+        }
+    }
+
     public void updateEnemies() {
         for (int i = 0; i < enemyList.size(); i++) {
             enemyList.get(i).updateEnemy();
             checkHit(enemyList.get(i));
+            //checkHitWithPlayer(enemyList.get(i));
             if (enemyList.get(i).getHealth() < 0) {
                 enemyList.remove(i);
                 i--;
@@ -58,5 +73,9 @@ public class EnemyHandler {
 
     public Enemy getEnemy(int i) {
         return enemyList.get(i);
+    }
+
+    public ArrayList<Enemy> getEnemyList() {
+        return enemyList;
     }
 }

@@ -35,11 +35,12 @@ public class Level1 implements Screen {
 
         player = new Player(0f, 0f, 25f, 5, 5, 5);
         bulletHandler = new BulletHandler(player);
-        enemyHandler = new EnemyHandler(bulletHandler);
+        enemyHandler = new EnemyHandler(bulletHandler, player);
 
         HUD.loadPlayer(player);
 
         time = 0;
+        enemyHandler.addEnemy(new Enemy(-250, 50, 25, 0, 0, 100));
     }
 
     @Override
@@ -52,8 +53,11 @@ public class Level1 implements Screen {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (time % 150 == 0) {
-            enemyHandler.addEnemy(new Enemy(-240, 180, 25, 0, -1, 100));
+        if (!enemyHandler.getEnemyList().isEmpty()) {
+            moveEnemy0(time, enemyHandler.getEnemy(0));
+            if (time % 150 == 0) {
+                bulletHandler.createEnemyShot(enemyHandler.getEnemy(0).getX(), enemyHandler.getEnemy(0).getY(), 0, -2);
+            }
         }
 
         player.updatePlayer();
@@ -65,8 +69,6 @@ public class Level1 implements Screen {
         bulletHandler.drawBullets(batch);
         player.renderPlayer(batch);
         enemyHandler.drawEnemies(batch);
-
-        //HUD.drawHUD(renderer, batch);
 
         batch.end();
         HUD.drawHUD(renderer, batch);
@@ -101,5 +103,9 @@ public class Level1 implements Screen {
         bulletHandler.dispose();
         enemyHandler.dispose();
         HUD.dispose();
+    }
+
+    public void moveEnemy0(int time, Enemy enemy) {
+        enemy.setVelX((float) ((float) 2*Math.sin(Math.toRadians(time))));
     }
 }

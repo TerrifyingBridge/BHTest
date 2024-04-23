@@ -9,6 +9,8 @@ public class InputHandler implements InputProcessor {
     public static boolean UP;
     public static boolean DOWN;
     public static boolean Z;
+    public static boolean X;
+    public static boolean SHIFT;
 
     @Override
     public boolean keyDown(int keycode) {
@@ -27,6 +29,12 @@ public class InputHandler implements InputProcessor {
             processed = true;
         } if (keycode == Input.Keys.Z){
             Z = true;
+            processed = true;
+        } if (keycode == Input.Keys.X) {
+            X = true;
+            processed = true;
+        } if (keycode == Input.Keys.SHIFT_LEFT) {
+            SHIFT = true;
             processed = true;
         }
         return processed;
@@ -49,6 +57,12 @@ public class InputHandler implements InputProcessor {
             processed = true;
         } if (keycode == Input.Keys.Z) {
             Z = false;
+            processed = true;
+        } if (keycode == Input.Keys.X) {
+            X = false;
+            processed = true;
+        } if (keycode == Input.Keys.SHIFT_LEFT) {
+            SHIFT = false;
             processed = true;
         }
         return processed;

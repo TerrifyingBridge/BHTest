@@ -1,6 +1,7 @@
 package com.mygdx.bhtest.handler;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.HUD;
 import com.mygdx.bhtest.objects.Bullet;
 import com.mygdx.bhtest.objects.Player;
@@ -33,6 +34,13 @@ public class BulletHandler {
         }
     }
 
+    public void createEnemyShot(float x, float y, float velX, float velY) {
+        Bullet temp = new Bullet(x, y, true);
+        temp.setVelX(velX);
+        temp.setVelY(velY);
+        bulletsE.add(temp);
+    }
+
     public void update() {
         spawnBullet();
 
@@ -43,16 +51,42 @@ public class BulletHandler {
                 i--;
             }
         }
+
+        for (int i = 0; i < bulletsE.size(); i++) {
+            bulletsE.get(i).updateBullet();
+            if (bulletsE.get(i).getX() < -1*BHGame.LEVEL_WIDTH/2f || bulletsE.get(i).getX() > BHGame.LEVEL_WIDTH/2f || bulletsE.get(i).getY() < -1*BHGame.LEVEL_HEIGHT/2f) {
+                bulletsE.remove(i);
+                i--;
+            } else if (hitPlayer(bulletsE.get(i))) {
+                bulletsE.remove(i);
+                i--;
+            }
+        }
+    }
+
+    private boolean hitPlayer(Bullet bullet) {
+            if (bullet.getX() > player.getX() && bullet.getX() < player.getX() + player.getLength() && bullet.getY() > player.getY() && bullet.getY() < player.getY() + player.getLength()) {
+                player.setLives(player.getLives()-1);
+                return true;
+            } else {
+                return false;
+            }
     }
 
     public void drawBullets(SpriteBatch batch) {
         for (Bullet bullet: bulletsP) {
             bullet.drawBullet(batch);
         }
+        for (Bullet bullet: bulletsE) {
+            bullet.drawBullet(batch);
+        }
     }
 
     public void dispose() {
         for (Bullet bullet: bulletsP) {
+            bullet.dispose();
+        }
+        for (Bullet bullet: bulletsE) {
             bullet.dispose();
         }
     }
