@@ -1,6 +1,7 @@
 package com.mygdx.bhtest.handler;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.HUD;
 import com.mygdx.bhtest.objects.Bullet;
@@ -24,13 +25,16 @@ public class BulletHandler {
     }
 
     private void spawnBullet() {
-        delay++;
-        if (delay < 0) {
+        if (InputHandler.Z && delay % (10 + (int) (player.getCurVelocity())) == 0 && player.getAlive()) {
+            bulletsP.add(new Bullet(player.getX() + 10f, player.getY() + player.getLength()/2f, false));
             delay = 0;
         }
-        if (InputHandler.Z && delay % 2 == 0) {
-            bulletsP.add(new Bullet(player.getX() + player.getLength()/2 - 2.5f, player.getY(), false));
+        if (!InputHandler.Z) {
             delay = 0;
+        } else if (delay < 0) {
+            delay = 0;
+        } else {
+            delay++;
         }
     }
 
@@ -65,12 +69,13 @@ public class BulletHandler {
     }
 
     private boolean hitPlayer(Bullet bullet) {
-            if (bullet.getX() > player.getX() && bullet.getX() < player.getX() + player.getLength() && bullet.getY() > player.getY() && bullet.getY() < player.getY() + player.getLength()) {
-                player.setLives(player.getLives()-1);
-                return true;
-            } else {
-                return false;
-            }
+        if (bullet.getHitbox().overlaps(player.getHitbox()) && player.getAlive()){
+            player.setLives(player.getLives()-1);
+            player.setAlive(false);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void drawBullets(SpriteBatch batch) {
@@ -94,4 +99,6 @@ public class BulletHandler {
     public ArrayList<Bullet> getBulletsP() {
         return bulletsP;
     }
+
+    public ArrayList<Bullet> getBulletsE() { return bulletsE;}
 }

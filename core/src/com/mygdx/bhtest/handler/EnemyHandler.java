@@ -2,6 +2,7 @@ package com.mygdx.bhtest.handler;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.bhtest.BHGame;
+import com.mygdx.bhtest.helper.ConstShot;
 import com.mygdx.bhtest.objects.Enemy;
 import com.mygdx.bhtest.objects.Player;
 
@@ -24,7 +25,7 @@ public class EnemyHandler {
 
     private void checkHit(Enemy enemy) {
         for (int i = 0; i < bulletHandler.getBulletsP().size(); i++) {
-            if (bulletHandler.getBulletsP().get(i).getX() >= enemy.getX() && bulletHandler.getBulletsP().get(i).getX() < enemy.getX() + enemy.getLength() && bulletHandler.getBulletsP().get(i).getY() >= enemy.getY() && bulletHandler.getBulletsP().get(i).getY() < enemy.getY() + enemy.getLength()) {
+            if (enemy.getHitbox().overlaps(bulletHandler.getBulletsP().get(i).getHitbox())) {
                 enemy.setHealth(enemy.getHealth() - 1);
                 bulletHandler.getBulletsP().remove(i);
                 i--;
@@ -33,21 +34,31 @@ public class EnemyHandler {
     }
 
     private void checkHitWithPlayer(Enemy enemy) {
-        boolean b = !(enemy.getX() < player.getX() + player.getLength() &&
-                enemy.getX() + enemy.getLength() > player.getX() &&
-                enemy.getY() + enemy.getLength() > player.getY() &&
-                enemy.getY() < player.getY() + player.getLength());
-        if (b) {
+        if (enemy.getHitbox().overlaps(player.getHitbox())) {
             player.setLives(player.getLives()-1);
+            player.setAlive(false);
             enemy.setHealth(enemy.getHealth()-100);
         }
     }
 
+    private void constShoot() {
+        for (Enemy enemy: enemyList) {
+            for (ConstShot shot: enemy.getConstShots()) {
+                if (shot.getCurShotDelay() >= shot.getShotDelay()) {
+                    bulletHandler.createEnemyShot(enemy.getX() + enemy.getLength()/2 - 2.5f + enemy.getVelX(), enemy.getY() + enemy.getLength()/2, shot.getBulVelX(), shot.getBulVelY());
+                    shot.setCurShotDelay(0);
+                }
+                shot.setCurShotDelay(shot.getCurShotDelay() + 1);
+            }
+        }
+    }
+
     public void updateEnemies() {
+        constShoot();
         for (int i = 0; i < enemyList.size(); i++) {
             enemyList.get(i).updateEnemy();
             checkHit(enemyList.get(i));
-            //checkHitWithPlayer(enemyList.get(i));
+            checkHitWithPlayer(enemyList.get(i));
             if (enemyList.get(i).getHealth() < 0) {
                 enemyList.remove(i);
                 i--;

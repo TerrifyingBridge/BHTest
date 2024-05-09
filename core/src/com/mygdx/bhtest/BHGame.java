@@ -2,16 +2,20 @@ package com.mygdx.bhtest;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.bhtest.handler.InputHandler;
 import com.mygdx.bhtest.screens.Level1;
 
 public class BHGame extends Game {
 	public static final int LEVEL_WIDTH = 640;
 	public static final int LEVEL_HEIGHT = 480;
+
+	OrthographicCamera camera;
 	
 	@Override
 	public void create () {
-		setScreen(new Level1());
+		camera = new OrthographicCamera(LEVEL_WIDTH, LEVEL_HEIGHT);
+		setScreen(new Level1(this, camera));
 		Gdx.input.setInputProcessor(new InputHandler());
 	}
 
