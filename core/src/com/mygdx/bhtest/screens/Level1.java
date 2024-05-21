@@ -10,6 +10,7 @@ import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.HUD;
 import com.mygdx.bhtest.handler.BulletHandler;
 import com.mygdx.bhtest.handler.EnemyHandler;
+import com.mygdx.bhtest.helper.ConstShot;
 import com.mygdx.bhtest.helper.MathFunctions;
 import com.mygdx.bhtest.helper.Path;
 import com.mygdx.bhtest.helper.Utility;
@@ -51,14 +52,14 @@ public class Level1 implements Screen {
         coef.add(-0.25f);
         MathFunctions f = new MathFunctions(coef, new ArrayList<Float>());
         MathFunctions g = new MathFunctions(new ArrayList<Float>(), coef);
-        Enemy temp = new Enemy(Utility.boxToStandardX(50), Utility.boxToStandardY(70), 25, 0, 0, 100);
+        Enemy temp = new Enemy(Utility.boxToStandardX(50), Utility.boxToStandardY(50), 25, 0, 0, 100);
         temp.addConstPath(Utility.boxToStandardX(50), Utility.boxToStandardY(20), 2);
-        temp.addAccelPath(Utility.boxToStandardX(10), Utility.boxToStandardY(20), 2, 10, 1);
+        //temp.addAccelPath(Utility.boxToStandardX(10), Utility.boxToStandardY(20), 2, 10, 1);
         MathFunctions h = new MathFunctions();
-        temp.addWait(100);
+        //temp.addWait(100);
         //temp.addFunctionPath(h, 100);
-        temp.addFunctionPath(f, 30);
-        temp.addFunctionPath(g, 30);
+        //temp.addFunctionPath(f, 30);
+        //temp.addFunctionPath(g, 30);
         enemyHandler.addEnemy(temp);
          */
 
@@ -83,7 +84,9 @@ public class Level1 implements Screen {
         enemyHandler.updateEnemies();
 
         //Segments go here
-        //segment1();
+        if (time == 100) {
+            segment1();
+        }
 
         batch.begin();
 
@@ -131,17 +134,12 @@ public class Level1 implements Screen {
         HUD.dispose();
     }
 
-    public void segment1() {
-        if (time > 5*30 && time % 60 == 0) {
-            Enemy temp = new Enemy(-1*BHGame.LEVEL_WIDTH/2f, BHGame.LEVEL_HEIGHT/2f,25,2,-1,10);
-            temp.addConstShot(30, 0, -2);
+    public void segment1 () {
+        for (int i = 0; i < 5; i++) {
+            Enemy temp = new Enemy(Utility.boxToStandardX(-10 + i*10), Utility.boxToStandardY(110), 25, 0,0,50);
+            temp.addConstPath(Utility.boxToStandardX(20*i + 10), Utility.boxToStandardY(90), 1 + i);
+            temp.addWait(100 + i*5);
             enemyHandler.addEnemy(temp);
-        }
-    }
-
-    public void segment0() {
-        if (time > 5*30 && time % 60 == 0){
-
         }
     }
 }

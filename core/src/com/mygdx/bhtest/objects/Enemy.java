@@ -163,4 +163,8 @@ public class Enemy {
     public ArrayList<Path> getPaths() {
         return paths;
     }
+
+    public Path getPath(int i) {
+        return paths.get(i);
+    }
 }

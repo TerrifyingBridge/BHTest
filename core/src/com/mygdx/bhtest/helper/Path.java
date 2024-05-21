@@ -24,6 +24,8 @@ public class Path {
      private int curTime;
      private MathFunctions function;
 
+     private ConstShot constShot;
+
      public Path(Enemy enemy, float x, float y, float velocity) {
          this.enemy = enemy;
          this.toX = x;
@@ -152,6 +154,10 @@ public class Path {
                     return (curTime >= time);
           }
           return true;
+     }
+
+     public void setConstShot(ConstShot shot) {
+          this.constShot = shot;
      }
 
      public int getTime() {
