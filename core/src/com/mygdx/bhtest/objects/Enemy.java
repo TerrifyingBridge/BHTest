@@ -2,6 +2,7 @@ package com.mygdx.bhtest.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.bhtest.helper.ConstShot;
 import com.mygdx.bhtest.helper.MathFunctions;
@@ -21,7 +22,8 @@ public class Enemy {
     private ArrayList<Path> paths;
 
     private Texture texture;
-    private Rectangle hitbox;
+    //private Rectangle hitbox;
+    private Circle hitbox;
 
     public Enemy(float x, float y, float length, float velX, float velY, int health){
         this.x = x;
@@ -34,7 +36,8 @@ public class Enemy {
         this.constShots = new ArrayList<>();
         this.paths = new ArrayList<>();
 
-        hitbox = new Rectangle(x + 12.5f - length/2, y + 12.5f - length/2, length, length);
+        //hitbox = new Rectangle(x + 12.5f - length/2, y + 12.5f - length/2, length, length);
+        hitbox = new Circle(x + 12.5f, y + 12.5f, length/2);
         texture = new Texture("blue.png");
     }
 
@@ -44,6 +47,10 @@ public class Enemy {
 
     public void addConstShot(int shotDelay, int curShotDelay, float bulVelX, float bulVelY) {
         constShots.add(new ConstShot(shotDelay, curShotDelay, bulVelX, bulVelY));
+    }
+
+    public void addConstShot(ConstShot shot) {
+        constShots.add(shot);
     }
 
     public void addPath(Path path) {
@@ -81,6 +88,9 @@ public class Enemy {
                 paths.remove(0);
                 if (!paths.isEmpty()) {
                     paths.get(0).refresh();
+                    if (paths.get(0).hasShot()) {
+                        addConstShot(paths.get(0).getConstShot());
+                    }
                 }
             }
         }
@@ -88,8 +98,8 @@ public class Enemy {
     }
 
     private void updateHitbox() {
-        hitbox.x = x + 12.5f - length/2;
-        hitbox.y = y + 12.5f - length/2;
+        hitbox.x = x + 12.5f;
+        hitbox.y = y + 12.5f;
     }
 
     public void clearConstShot() {
@@ -152,9 +162,9 @@ public class Enemy {
         return velY;
     }
 
-    public Rectangle getHitbox() {
-        return hitbox;
-    }
+    //public Rectangle getHitbox() { return hitbox; }
+
+    public Circle getHitbox() { return hitbox; }
 
     public ArrayList<ConstShot> getConstShots() {
         return constShots;

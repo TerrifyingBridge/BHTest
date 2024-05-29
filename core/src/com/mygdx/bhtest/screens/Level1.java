@@ -42,7 +42,7 @@ public class Level1 implements Screen {
         batch.setProjectionMatrix(cam.combined);
         renderer.setProjectionMatrix(cam.combined);
 
-        player = new Player(Utility.boxToStandardX(50) - 12.5f, Utility.boxToStandardY(10), 12f, 5, 5, 5);
+        player = new Player(Utility.boxToStandardX(50) - 12.5f, Utility.boxToStandardY(10), 20f, 5, 5, 5);
         bulletHandler = new BulletHandler(player);
         enemyHandler = new EnemyHandler(bulletHandler, player);
 
@@ -85,7 +85,7 @@ public class Level1 implements Screen {
 
         //Segments go here
         if (time == 100) {
-            segment1();
+            segment0();
         }
 
         batch.begin();
@@ -141,5 +141,15 @@ public class Level1 implements Screen {
             temp.addWait(100 + i*5);
             enemyHandler.addEnemy(temp);
         }
+    }
+
+    public void segment0() {
+        Enemy temp = new Enemy(Utility.boxToStandardX(-10 + 20), Utility.boxToStandardY(110), 25, 0,0,50);
+        temp.addConstPath(Utility.boxToStandardX(20 + 10), Utility.boxToStandardY(90), 1);
+        temp.addWait(60);
+        Path path = new Path(temp, Utility.boxToStandardX(50), Utility.boxToStandardY(50), 1);
+        path.setConstShot(new ConstShot(30, 0, 0, 2));
+        temp.addPath(path);
+        enemyHandler.addEnemy(temp);
     }
 }

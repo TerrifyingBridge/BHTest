@@ -2,6 +2,7 @@ package com.mygdx.bhtest.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Bullet {
@@ -12,13 +13,15 @@ public class Bullet {
     private float velY;
 
     private Texture texture;
-    private Rectangle hitbox;
+    //private Rectangle hitbox;
+    private Circle hitbox;
 
     public Bullet(float x, float y, boolean enemy) {
         this.x = x;
         this.y = y;
         this.enemy = enemy;
-        hitbox = new Rectangle(x+1, y+1, 3, 3);
+        //hitbox = new Rectangle(x+1, y+1, 3, 3);
+        hitbox = new Circle(x + 2.5f, y + 2.5f, 2);
         if (!enemy) {
             this.velY = 8;
             this.velX = 0;
@@ -38,8 +41,8 @@ public class Bullet {
     }
 
     private void updateHitbox() {
-        hitbox.x = x + 1;
-        hitbox.y = y + 1;
+        hitbox.x = x + 2.5f;
+        hitbox.y = y + 2.5f;
     }
 
     public void drawBullet(SpriteBatch batch) {
@@ -66,7 +69,7 @@ public class Bullet {
         this.velY = vel;
     }
 
-    public Rectangle getHitbox() {
-        return hitbox;
-    }
+    //public Rectangle getHitbox() { return hitbox; }
+
+    public Circle getHitbox() { return hitbox; }
 }

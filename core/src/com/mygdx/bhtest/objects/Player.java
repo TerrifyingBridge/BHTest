@@ -3,6 +3,7 @@ package com.mygdx.bhtest.objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.HUD;
@@ -14,7 +15,8 @@ public class Player {
     private float length;
     private int velocity;
     private float curVelocity;
-    private Rectangle hitbox;
+    //private Rectangle hitbox;
+    private Circle hitbox;
 
     private int lives;
     private int bombs;
@@ -39,7 +41,8 @@ public class Player {
         float xCenter = x + 12.5f;
         float yCenter = y + 12.5f;
 
-        this.hitbox = new Rectangle(xCenter - length/2, yCenter - length/2, length, length);
+        //this.hitbox = new Rectangle(xCenter - length/2, yCenter - length/2, length, length);
+        this.hitbox = new Circle(x + 12.5f, y + 12.5f, length/2);
         
         bombDelay = 0;
         respawnDelay = 0;
@@ -127,8 +130,8 @@ public class Player {
     }
 
     private void updateHitbox() {
-        hitbox.x = x + 13 - length/2;
-        hitbox.y = y + 13 - length/2;
+        hitbox.x = x + 12.5f;
+        hitbox.y = y + 12.5f;
     }
 
     public void renderPlayer(SpriteBatch batch) {
@@ -183,9 +186,9 @@ public class Player {
         return bombs;
     }
 
-    public Rectangle getHitbox() {
-        return hitbox;
-    }
+    //public Rectangle getHitbox() { return hitbox; }
+
+    public Circle getHitbox() { return hitbox; }
 
     public boolean getAlive() {
         return alive;

@@ -156,8 +156,15 @@ public class Path {
           return true;
      }
 
+     public boolean hasShot() {
+         return constShot != null;
+     }
+
      public void setConstShot(ConstShot shot) {
           this.constShot = shot;
+     }
+     public ConstShot getConstShot() {
+          return constShot;
      }
 
      public int getTime() {
