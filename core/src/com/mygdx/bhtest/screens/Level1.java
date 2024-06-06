@@ -46,23 +46,6 @@ public class Level1 implements Screen {
         bulletHandler = new BulletHandler(player);
         enemyHandler = new EnemyHandler(bulletHandler, player);
 
-        /*
-        ArrayList<Float> coef = new ArrayList<>();
-        coef.add(5f);
-        coef.add(-0.25f);
-        MathFunctions f = new MathFunctions(coef, new ArrayList<Float>());
-        MathFunctions g = new MathFunctions(new ArrayList<Float>(), coef);
-        Enemy temp = new Enemy(Utility.boxToStandardX(50), Utility.boxToStandardY(50), 25, 0, 0, 100);
-        temp.addConstPath(Utility.boxToStandardX(50), Utility.boxToStandardY(20), 2);
-        //temp.addAccelPath(Utility.boxToStandardX(10), Utility.boxToStandardY(20), 2, 10, 1);
-        MathFunctions h = new MathFunctions();
-        //temp.addWait(100);
-        //temp.addFunctionPath(h, 100);
-        //temp.addFunctionPath(f, 30);
-        //temp.addFunctionPath(g, 30);
-        enemyHandler.addEnemy(temp);
-         */
-
         HUD.loadPlayer(player);
 
         time = 0;

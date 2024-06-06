@@ -3,7 +3,7 @@ package com.mygdx.bhtest.handler;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
-public class InputHandler implements InputProcessor {
+public class InputHandler implements InputProcessor{
     public static boolean LEFT;
     public static boolean RIGHT;
     public static boolean UP;
@@ -11,6 +11,10 @@ public class InputHandler implements InputProcessor {
     public static boolean Z;
     public static boolean X;
     public static boolean SHIFT;
+
+    public static int xVal;
+    public static int yVal;
+    public static boolean pressed;
 
     @Override
     public boolean keyDown(int keycode) {
@@ -75,12 +79,16 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+        xVal = screenX;
+        yVal = screenY;
+        pressed = true;
+        return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        pressed = false;
+        return true;
     }
 
     @Override

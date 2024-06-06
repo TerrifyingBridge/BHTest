@@ -2,10 +2,12 @@ package com.mygdx.bhtest;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.bhtest.handler.InputHandler;
 import com.mygdx.bhtest.screens.Level1;
+import com.mygdx.bhtest.screens.MenuScreen;
 
 public class BHGame extends Game {
 	public static final int LEVEL_WIDTH = 640;
@@ -13,13 +15,18 @@ public class BHGame extends Game {
 
 	public OrthographicCamera camera;
 	public AssetManager assetManager;
+
+	public MenuScreen menuScreen;
 	
 	@Override
 	public void create () {
 		camera = new OrthographicCamera(LEVEL_WIDTH, LEVEL_HEIGHT);
 		assetManager = new AssetManager();
 
-		setScreen(new Level1(this, camera));
+		menuScreen = new MenuScreen(this, camera);
+		setScreen(menuScreen);
+
+		//setScreen(new Level1(this, camera));
 		Gdx.input.setInputProcessor(new InputHandler());
 	}
 
@@ -32,5 +39,9 @@ public class BHGame extends Game {
 	public void dispose () {
 		super.dispose();
 		assetManager.dispose();
+	}
+
+	public void changeScreen(Screen screen) {
+		setScreen(screen);
 	}
 }
