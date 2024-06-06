@@ -40,8 +40,4 @@ public class BHGame extends Game {
 		super.dispose();
 		assetManager.dispose();
 	}
-
-	public void changeScreen(Screen screen) {
-		setScreen(screen);
-	}
 }

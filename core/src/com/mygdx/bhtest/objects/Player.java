@@ -40,9 +40,8 @@ public class Player {
 
         float xCenter = x + 12.5f;
         float yCenter = y + 12.5f;
-
-        //this.hitbox = new Rectangle(xCenter - length/2, yCenter - length/2, length, length);
-        this.hitbox = new Circle(x + 12.5f, y + 12.5f, length/2);
+        
+        this.hitbox = new Circle(xCenter, yCenter, length/2);
         
         bombDelay = 0;
         respawnDelay = 0;

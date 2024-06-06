@@ -31,13 +31,13 @@ public class ButtonHandler {
             }
         }
 
-        if (InputHandler.UP && count > 5) {
+        if (InputHandler.UP && count > 10) {
             spot -= 1;
             if (spot < 0) {
                 spot += buttonList.size();
             }
             count = 0;
-        } else if (InputHandler.DOWN && count > 5) {
+        } else if (InputHandler.DOWN && count > 10) {
             spot = (spot + 1) % buttonList.size();
             count = 0;
         }
@@ -45,6 +45,8 @@ public class ButtonHandler {
 
         if (InputHandler.Z && buttonList.get(spot).hasScreen()) {
             game.setScreen(buttonList.get(spot).getScreen());
+        } else if (InputHandler.Z) {
+            buttonList.get(spot).action();
         }
     }
 

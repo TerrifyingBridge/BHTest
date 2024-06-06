@@ -64,6 +64,11 @@ public class MyButton {
         }
     }
 
+    public void action() {
+        //Override me!
+        return;
+    }
+
     public Screen getScreen() {
         return screen;
     }

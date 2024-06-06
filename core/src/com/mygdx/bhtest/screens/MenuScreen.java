@@ -7,10 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.handler.ButtonHandler;
-import com.mygdx.bhtest.handler.InputHandler;
 import com.mygdx.bhtest.uistuff.MyButton;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
@@ -26,10 +24,18 @@ public class MenuScreen implements Screen {
         this.camera = camera;
         this.batch = new SpriteBatch();
 
+        batch.setProjectionMatrix(camera.combined);
+
         ArrayList<MyButton> list = new ArrayList<>();
-        list.add(new MyButton("start", 100, 100, 200, 50, new Level1(game, camera)));
-        list.add(new MyButton("start", 100, 200, 200, 50));
-        list.add(new MyButton("start", 100, 300, 200, 50));
+        list.add(new MyButton("start", -100, -50, 200, 50, new Level1(this.game, this.camera)));
+        list.add(new MyButton("options", -100, -125, 200, 50, new OptionsScreen(this.game, this.camera, batch, this)));
+        list.add(new MyButton("quit", -100, -200, 200, 50) {
+            @Override
+            public void action() {
+                Gdx.app.exit();
+                System.exit(-1);
+            }
+        });
 
         buttonHandler = new ButtonHandler(game, list);
     }
