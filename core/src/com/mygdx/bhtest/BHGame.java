@@ -2,11 +2,9 @@ package com.mygdx.bhtest;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.bhtest.handler.InputHandler;
-import com.mygdx.bhtest.screens.Level1;
 import com.mygdx.bhtest.screens.MenuScreen;
 
 public class BHGame extends Game {

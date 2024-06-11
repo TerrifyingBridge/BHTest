@@ -15,6 +15,7 @@ public class BulletHandler {
     private ArrayList<Bullet> bulletsP;
     private ArrayList<Bullet> bulletsE;
     private int delay;
+    private int startTime;
 
     public BulletHandler(Player player) {
         this.player = player;
@@ -22,10 +23,11 @@ public class BulletHandler {
         bulletsP = new ArrayList<>();
         bulletsE = new ArrayList<>();
         delay = 0;
+        startTime = 0;
     }
 
     private void spawnBullet() {
-        if (InputHandler.Z && delay % (10 + (int) (player.getCurVelocity())) == 0 && player.getAlive()) {
+        if (InputHandler.Z && delay % (10 + (int) (player.getCurVelocity())) == 0 && player.getAlive() && startTime >= 10) {
             bulletsP.add(new Bullet(player.getX() + 10f, player.getY() + player.getLength()/2f, false));
             delay = 0;
         }
@@ -35,6 +37,10 @@ public class BulletHandler {
             delay = 0;
         } else {
             delay++;
+        }
+
+        if (startTime < 10) {
+            startTime++;
         }
     }
 
