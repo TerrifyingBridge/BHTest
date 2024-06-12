@@ -1,7 +1,6 @@
 package com.mygdx.bhtest.handler;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.HUD;
 import com.mygdx.bhtest.objects.Bullet;
@@ -10,10 +9,14 @@ import com.mygdx.bhtest.objects.Player;
 import java.util.ArrayList;
 
 public class BulletHandler {
-    private Player player;
+    private final Player player;
 
-    private ArrayList<Bullet> bulletsP;
-    private ArrayList<Bullet> bulletsE;
+    private final ArrayList<Bullet> bulletsP;
+    private final ArrayList<Bullet> bulletsE;
+    private final ArrayList<Bullet> bulletQueue;
+
+    private int SHOT_DELAY;
+
     private int delay;
     private int startTime;
 
@@ -22,21 +25,31 @@ public class BulletHandler {
 
         bulletsP = new ArrayList<>();
         bulletsE = new ArrayList<>();
+        bulletQueue = new ArrayList<>();
+
         delay = 0;
+        SHOT_DELAY = 5;
         startTime = 0;
     }
 
     private void spawnBullet() {
-        if (InputHandler.Z && delay % (10 + (int) (player.getCurVelocity())) == 0 && player.getAlive() && startTime >= 10) {
-            bulletsP.add(new Bullet(player.getX() + 10f, player.getY() + player.getLength()/2f, false));
+        if (InputHandler.Z && startTime >= 10 && bulletQueue.isEmpty() && player.getAlive()) {
+            bulletQueue.add(new Bullet(player.getX() + 10f, player.getY() + player.getLength()/2f, false));
+            bulletQueue.add(new Bullet(player.getX() + 10f, player.getY() + player.getLength()/2f, false));
+            bulletQueue.add(new Bullet(player.getX() + 10f, player.getY() + player.getLength()/2f, false));
+        }
+
+        if (delay >= SHOT_DELAY && !bulletQueue.isEmpty()){
+            Bullet temp = bulletQueue.remove(0);
+            if (temp != null) {
+                bulletsP.add(temp);
+            }
             delay = 0;
         }
-        if (!InputHandler.Z) {
-            delay = 0;
-        } else if (delay < 0) {
-            delay = 0;
-        } else {
-            delay++;
+
+        for (Bullet bullet: bulletQueue) {
+            bullet.setX(player.getX() + 10f);
+            bullet.setY(player.getY() + player.getLength() / 2f);
         }
 
         if (startTime < 10) {
@@ -52,6 +65,9 @@ public class BulletHandler {
     }
 
     public void update() {
+        delay++;
+        SHOT_DELAY = 5; // + (int) player.getCurVelocity();
+
         spawnBullet();
 
         for (int i = 0; i < bulletsP.size(); i++) {

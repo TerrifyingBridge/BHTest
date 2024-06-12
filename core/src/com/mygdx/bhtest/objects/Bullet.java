@@ -8,20 +8,20 @@ import com.badlogic.gdx.math.Rectangle;
 public class Bullet {
     private float x;
     private float y;
-    private boolean enemy;
     private float velX;
     private float velY;
 
-    private Texture texture;
-    //private Rectangle hitbox;
-    private Circle hitbox;
+    private final boolean enemy;
+
+    private final Texture texture;
+    private final Circle hitbox;
 
     public Bullet(float x, float y, boolean enemy) {
         this.x = x;
         this.y = y;
         this.enemy = enemy;
-        //hitbox = new Rectangle(x+1, y+1, 3, 3);
         hitbox = new Circle(x + 2.5f, y + 2.5f, 2);
+
         if (!enemy) {
             this.velY = 8;
             this.velX = 0;
@@ -59,6 +59,14 @@ public class Bullet {
 
     public float getX() {
         return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 
     public void setVelX(float vel) {
