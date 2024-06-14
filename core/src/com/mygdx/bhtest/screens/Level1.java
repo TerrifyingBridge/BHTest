@@ -11,25 +11,21 @@ import com.mygdx.bhtest.HUD;
 import com.mygdx.bhtest.handler.BulletHandler;
 import com.mygdx.bhtest.handler.EnemyHandler;
 import com.mygdx.bhtest.helper.ConstShot;
-import com.mygdx.bhtest.helper.MathFunctions;
 import com.mygdx.bhtest.helper.Path;
 import com.mygdx.bhtest.helper.Utility;
 import com.mygdx.bhtest.objects.Enemy;
 import com.mygdx.bhtest.objects.Player;
-import sun.nio.ch.Util;
-
-import java.util.ArrayList;
 
 public class Level1 implements Screen {
-    private BHGame game;
+    private final BHGame game;
 
-    private SpriteBatch batch;
-    private ShapeRenderer renderer;
-    private OrthographicCamera cam;
+    private final SpriteBatch batch;
+    private final ShapeRenderer renderer;
+    private final OrthographicCamera cam;
 
-    private Player player;
-    private BulletHandler bulletHandler;
-    private EnemyHandler enemyHandler;
+    private final Player player;
+    private final BulletHandler bulletHandler;
+    private final EnemyHandler enemyHandler;
 
     private int time;
 
@@ -127,7 +123,7 @@ public class Level1 implements Screen {
     }
 
     public void segment0() {
-        Enemy temp = new Enemy(Utility.boxToStandardX(-10 + 20), Utility.boxToStandardY(110), 25, 0,0,50);
+        Enemy temp = new Enemy(Utility.boxToStandardX(-10 + 20), Utility.boxToStandardY(110), 2, 0,0,50);
         temp.addConstPath(Utility.boxToStandardX(20 + 10), Utility.boxToStandardY(90), 1);
         temp.addWait(60);
         Path path = new Path(temp, Utility.boxToStandardX(50), Utility.boxToStandardY(50), 1);

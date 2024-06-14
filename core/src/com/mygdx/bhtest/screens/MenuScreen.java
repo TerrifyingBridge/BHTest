@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
 
-    private BHGame game;
-    private OrthographicCamera camera;
-    private SpriteBatch batch;
+    private final BHGame game;
+    private final OrthographicCamera camera;
+    private final SpriteBatch batch;
 
-    private ButtonHandler buttonHandler;
+    private final ButtonHandler buttonHandler;
 
     public MenuScreen(BHGame game, OrthographicCamera camera) {
         this.game = game;

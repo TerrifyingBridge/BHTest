@@ -2,9 +2,7 @@ package com.mygdx.bhtest.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.HUD;
 import com.mygdx.bhtest.handler.InputHandler;
@@ -12,11 +10,10 @@ import com.mygdx.bhtest.handler.InputHandler;
 public class Player {
     private float x;
     private float y;
-    private float length;
-    private int velocity;
+    private final float length;
+    private final int velocity;
     private float curVelocity;
-    //private Rectangle hitbox;
-    private Circle hitbox;
+    private final Circle hitbox;
 
     private int lives;
     private int bombs;
@@ -26,7 +23,7 @@ public class Player {
     private int respawnDelay;
     private boolean alive;
 
-    private Texture texture;
+    private final Texture texture;
 
     public Player(float x, float y, float length, int velocity, int lives, int bombs) {
         this.x = x;
@@ -184,8 +181,6 @@ public class Player {
     public int getBombs() {
         return bombs;
     }
-
-    //public Rectangle getHitbox() { return hitbox; }
 
     public Circle getHitbox() { return hitbox; }
 

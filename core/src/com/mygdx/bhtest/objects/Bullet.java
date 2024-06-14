@@ -3,7 +3,6 @@ package com.mygdx.bhtest.objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 
 public class Bullet {
     private float x;
@@ -11,19 +10,16 @@ public class Bullet {
     private float velX;
     private float velY;
 
-    private final boolean enemy;
-
     private final Texture texture;
     private final Circle hitbox;
 
     public Bullet(float x, float y, boolean enemy) {
         this.x = x;
         this.y = y;
-        this.enemy = enemy;
         hitbox = new Circle(x + 2.5f, y + 2.5f, 2);
 
         if (!enemy) {
-            this.velY = 8;
+            this.velY = 16;
             this.velX = 0;
             texture = new Texture("red.png");
         } else {
@@ -76,8 +72,6 @@ public class Bullet {
     public void setVelY(float vel) {
         this.velY = vel;
     }
-
-    //public Rectangle getHitbox() { return hitbox; }
 
     public Circle getHitbox() { return hitbox; }
 }

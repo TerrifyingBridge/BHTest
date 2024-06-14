@@ -121,6 +121,4 @@ public class BulletHandler {
     public ArrayList<Bullet> getBulletsP() {
         return bulletsP;
     }
-
-    public ArrayList<Bullet> getBulletsE() { return bulletsE;}
 }
