@@ -123,7 +123,7 @@ public class Level1 implements Screen {
     }
 
     public void segment0() {
-        Enemy temp = new Enemy(Utility.boxToStandardX(-10 + 20), Utility.boxToStandardY(110), 2, 0,0,50);
+        Enemy temp = new Enemy(Utility.boxToStandardX(-10 + 20), Utility.boxToStandardY(110), 25, 0,0,50);
         temp.addConstPath(Utility.boxToStandardX(20 + 10), Utility.boxToStandardY(90), 1);
         temp.addWait(60);
         Path path = new Path(temp, Utility.boxToStandardX(50), Utility.boxToStandardY(50), 1);

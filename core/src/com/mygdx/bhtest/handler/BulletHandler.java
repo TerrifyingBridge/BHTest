@@ -13,7 +13,7 @@ public class BulletHandler {
 
     private final ArrayList<Bullet> bulletsP;
     private final ArrayList<Bullet> bulletsE;
-    private final ArrayList<Bullet> bulletQueue;
+    private ArrayList<Bullet> bulletQueue;
 
     private int SHOT_DELAY;
 
@@ -37,6 +37,8 @@ public class BulletHandler {
             bulletQueue.add(new Bullet(player.getX() + 10f, player.getY() + player.getLength()/2f, false));
             bulletQueue.add(new Bullet(player.getX() + 10f, player.getY() + player.getLength()/2f, false));
             bulletQueue.add(new Bullet(player.getX() + 10f, player.getY() + player.getLength()/2f, false));
+        } else if (!player.getAlive()) {
+            bulletQueue = new ArrayList<>();
         }
 
         if (delay >= SHOT_DELAY && !bulletQueue.isEmpty()){
