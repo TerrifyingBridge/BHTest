@@ -9,9 +9,9 @@ import com.mygdx.bhtest.objects.Player;
 import java.util.ArrayList;
 
 public class EnemyHandler {
-    private ArrayList<Enemy> enemyList;
-    private BulletHandler bulletHandler;
-    private Player player;
+    private final ArrayList<Enemy> enemyList;
+    private final BulletHandler bulletHandler;
+    private final Player player;
 
     public EnemyHandler(BulletHandler bulletHandler, Player player) {
         this.enemyList = new ArrayList<>();
@@ -60,6 +60,7 @@ public class EnemyHandler {
             checkHit(enemyList.get(i));
             checkHitWithPlayer(enemyList.get(i));
             if (enemyList.get(i).getHealth() < 0) {
+                player.setScore(player.getScore() + enemyList.get(i).getScore());
                 enemyList.remove(i);
                 i--;
             }

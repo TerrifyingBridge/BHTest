@@ -17,6 +17,7 @@ public class Enemy {
     private float velY;
     private float velX;
     private int health;
+    private int score;
 
     private ArrayList<ConstShot> constShots;
     private ArrayList<Path> paths;
@@ -32,6 +33,7 @@ public class Enemy {
         this.velX = velX;
         this.velY = velY;
         this.health = health;
+        this.score = 50;
 
         this.constShots = new ArrayList<>();
         this.paths = new ArrayList<>();
@@ -176,5 +178,9 @@ public class Enemy {
 
     public Path getPath(int i) {
         return paths.get(i);
+    }
+
+    public int getScore() {
+        return score;
     }
 }

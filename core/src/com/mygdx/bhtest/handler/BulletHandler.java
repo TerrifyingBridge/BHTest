@@ -15,7 +15,7 @@ public class BulletHandler {
     private final ArrayList<Bullet> bulletsE;
     private ArrayList<Bullet> bulletQueue;
 
-    private int SHOT_DELAY;
+    private final int SHOT_DELAY = 5;
 
     private int delay;
     private int startTime;
@@ -28,7 +28,6 @@ public class BulletHandler {
         bulletQueue = new ArrayList<>();
 
         delay = 0;
-        SHOT_DELAY = 5;
         startTime = 0;
     }
 
@@ -68,7 +67,6 @@ public class BulletHandler {
 
     public void update() {
         delay++;
-        SHOT_DELAY = 5; // + (int) player.getCurVelocity();
 
         spawnBullet();
 
