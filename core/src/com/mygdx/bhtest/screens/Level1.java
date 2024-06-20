@@ -54,7 +54,11 @@ public class Level1 implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+        if (player.canBomb()) {
+            Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1);
+        } else {
+            Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+        }
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //System.out.println(enemyHandler.getEnemy(0).getX());
 
@@ -70,7 +74,7 @@ public class Level1 implements Screen {
         batch.begin();
 
         bulletHandler.drawBullets(batch);
-        player.renderPlayer(batch);
+        player.renderPlayer(batch, time);
         enemyHandler.drawEnemies(batch);
 
         batch.end();

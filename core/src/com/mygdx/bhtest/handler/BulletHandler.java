@@ -12,7 +12,7 @@ public class BulletHandler {
     private final Player player;
 
     private final ArrayList<Bullet> bulletsP;
-    private final ArrayList<Bullet> bulletsE;
+    private ArrayList<Bullet> bulletsE;
     private ArrayList<Bullet> bulletQueue;
 
     private final int SHOT_DELAY = 5;
@@ -69,6 +69,9 @@ public class BulletHandler {
         delay++;
 
         spawnBullet();
+        if (player.canBomb()) {
+            bulletsE = new ArrayList<>();
+        }
 
         for (int i = 0; i < bulletsP.size(); i++) {
             bulletsP.get(i).updateBullet();

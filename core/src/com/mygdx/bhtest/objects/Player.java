@@ -12,7 +12,6 @@ public class Player {
     private float y;
     private final float length;
     private final int velocity;
-    private float curVelocity;
     private final Circle hitbox;
 
     private int lives;
@@ -20,10 +19,12 @@ public class Player {
     private int score;
     
     private int bombDelay;
+    private boolean bomb;
     private int respawnDelay;
     private boolean alive;
 
-    private final Texture texture;
+    private final Texture texture1;
+    private final Texture texture2;
 
     public Player(float x, float y, float length, int velocity, int lives, int bombs) {
         this.x = x;
@@ -32,7 +33,6 @@ public class Player {
         this.velocity = velocity;
         this.lives = lives;
         this.bombs = bombs;
-        this.curVelocity = 0;
         this.score = 0;
 
         float xCenter = x + 12.5f;
@@ -41,10 +41,12 @@ public class Player {
         this.hitbox = new Circle(xCenter, yCenter, length/2);
         
         bombDelay = 0;
+        bomb = false;
         respawnDelay = 0;
         alive = true;
 
-        texture = new Texture("yellow.png");
+        texture1 = new Texture("player1.png");
+        texture2 = new Texture("player2.png");
     }
 
     private void movePlayer() {
@@ -61,7 +63,6 @@ public class Player {
         }
 
         if (newX == 0 && newY == 0) {
-            curVelocity = 0;
             return;
         }
 
@@ -74,7 +75,6 @@ public class Player {
             newX = x + newX*velocity;
             newY = y + newY*velocity;
         }
-        curVelocity = newY - y;
 
         if (newX <= -1*BHGame.LEVEL_WIDTH/2f + 20) {
             newX = -1*BHGame.LEVEL_WIDTH/2f + 20;
@@ -99,11 +99,14 @@ public class Player {
         if (InputHandler.X && bombDelay == 0 && alive) {
             bombs--;
             bombDelay++;
+            bomb = true;
         } else if (bombDelay > 0) {
             bombDelay++;
-            if (bombDelay == 300) {
+            if (bombDelay == 150) {
                 bombDelay = 0;
             }
+        } else {
+            bomb = false;
         }
 
         if (!alive) {
@@ -130,12 +133,17 @@ public class Player {
         hitbox.y = y + 12.5f;
     }
 
-    public void renderPlayer(SpriteBatch batch) {
-        batch.draw(texture, x, y);
+    public void renderPlayer(SpriteBatch batch, int frame) {
+        if (frame % 30 < 15) {
+            batch.draw(texture1, x, y);
+        } else {
+            batch.draw(texture2, x ,y);
+        }
     }
 
     public void dispose() {
-        texture.dispose();
+        texture1.dispose();
+        texture2.dispose();
     }
 
     public float getX() {
@@ -148,14 +156,6 @@ public class Player {
 
     public float getLength() {
         return length;
-    }
-
-    public float getCurVelocity() {
-        return curVelocity;
-    }
-
-    public int getVelocity() {
-        return velocity;
     }
 
     public void setScore(int score) {
@@ -176,6 +176,10 @@ public class Player {
 
     public void setBombs(int bombs) {
         this.bombs = bombs;
+    }
+
+    public boolean canBomb() {
+        return bomb;
     }
 
     public int getBombs() {
