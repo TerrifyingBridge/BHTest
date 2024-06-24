@@ -63,6 +63,6 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
     }
 }

@@ -41,7 +41,7 @@ public class HUD {
     private static void drawText(SpriteBatch batch) {
         float centerOfRight = ((-1*BHGame.LEVEL_WIDTH/2f + BOX_WIDTH) + (BHGame.LEVEL_WIDTH/2f))/2;
         font.getData().setScale(1.5f,1.5f);
-        font.draw(batch, "Squares of Justice",  centerOfRight- 75, BHGame.LEVEL_HEIGHT/2f - 15);
+        font.draw(batch, "Moth of Justice",  centerOfRight - 60, BHGame.LEVEL_HEIGHT/2f - 15);
         font.getData().setScale(1,1);
         font.draw(batch, "High Score: " + player.getScore(), centerOfRight - 100, BHGame.LEVEL_HEIGHT/2f - 55);
         font.draw(batch, "Score: " + player.getScore(), centerOfRight - 68, BHGame.LEVEL_HEIGHT/2f - 85);

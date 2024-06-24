@@ -8,8 +8,8 @@ public class MathFunctions {
 
     private int type;
 
-    private ArrayList<Float> coefficientsX;
-    private ArrayList<Float> coefficientsY;
+    private final ArrayList<Float> coefficientsX;
+    private final ArrayList<Float> coefficientsY;
 
     public MathFunctions(ArrayList<Float> coefficientsX, ArrayList<Float> coefficientsY) {
         this.type = CARTESIAN;

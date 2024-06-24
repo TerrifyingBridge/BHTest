@@ -4,9 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 
-public class Bullet {
-    private float x;
-    private float y;
+public class Bullet extends GameObject{
     private float velX;
     private float velY;
 
@@ -14,8 +12,7 @@ public class Bullet {
     private final Circle hitbox;
 
     public Bullet(float x, float y, boolean enemy) {
-        this.x = x;
-        this.y = y;
+        super(x, y, 5f);
         hitbox = new Circle(x + 2.5f, y + 2.5f, 2);
 
         if (!enemy) {
@@ -47,14 +44,6 @@ public class Bullet {
 
     public void dispose() {
         texture.dispose();
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public float getX() {
-        return x;
     }
 
     public void setX(float x) {

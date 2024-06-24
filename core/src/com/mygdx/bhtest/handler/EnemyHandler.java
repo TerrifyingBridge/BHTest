@@ -71,9 +71,9 @@ public class EnemyHandler {
         }
     }
 
-    public void drawEnemies(SpriteBatch batch) {
+    public void drawEnemies(SpriteBatch batch, int time) {
         for (Enemy enemy: enemyList) {
-            enemy.drawEnemy(batch);
+            enemy.drawEnemy(batch, time);
         }
     }
 

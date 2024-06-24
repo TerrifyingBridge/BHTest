@@ -3,44 +3,53 @@ package com.mygdx.bhtest.objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.bhtest.helper.ConstShot;
 import com.mygdx.bhtest.helper.MathFunctions;
 import com.mygdx.bhtest.helper.Path;
 
 import java.util.ArrayList;
 
-public class Enemy {
-    private float x;
-    private float y;
-    private float length;
+public class Enemy extends GameObject{
+
+    public enum EnemyType{
+        basicSpider, bigSpider
+    }
+
     private float velY;
     private float velX;
     private int health;
-    private int score;
+    private final int score;
 
     private ArrayList<ConstShot> constShots;
     private ArrayList<Path> paths;
 
-    private Texture texture;
-    //private Rectangle hitbox;
+    private Texture texture1;
+    private Texture texture2;
+    private final EnemyType enemyType;
     private Circle hitbox;
 
-    public Enemy(float x, float y, float length, float velX, float velY, int health){
-        this.x = x;
-        this.y = y;
-        this.length = length;
+    public Enemy(float x, float y, float velX, float velY, int health, EnemyType enemyType){
+        //Default chosen for length, as it changes based on
+        super(x, y);
         this.velX = velX;
         this.velY = velY;
         this.health = health;
-        this.score = 50;
+        this.score = health;
 
         this.constShots = new ArrayList<>();
         this.paths = new ArrayList<>();
 
-        //hitbox = new Rectangle(x + 12.5f - length/2, y + 12.5f - length/2, length, length);
-        hitbox = new Circle(x + 12.5f, y + 12.5f, length/2);
-        texture = new Texture("blue.png");
+        this.enemyType = enemyType;
+
+        switch (this.enemyType) {
+            case basicSpider:
+                length = 25f;
+                hitbox = new Circle(x + 12.5f, y + 12.5f, length/2);
+                texture1 = new Texture("1enemy1.png");
+                texture2 = new Texture("1enemy2.png");
+            case bigSpider:
+                //Add later
+        }
     }
 
     public void addConstShot(int shotDelay, float bulVelX, float bulVelY) {
@@ -72,7 +81,7 @@ public class Enemy {
     }
 
     public void addWait(int time) {
-        MathFunctions waitFunc = new MathFunctions(new ArrayList<>(), new ArrayList<>());
+        MathFunctions waitFunc = new MathFunctions();
         paths.add(new Path(this, waitFunc, time));
     }
 
@@ -100,20 +109,31 @@ public class Enemy {
     }
 
     private void updateHitbox() {
-        hitbox.x = x + 12.5f;
-        hitbox.y = y + 12.5f;
+        switch (enemyType) {
+            case basicSpider:
+                hitbox.x = x + length/2;
+                hitbox.y = y + length/2;
+            case bigSpider:
+                //Add later
+        }
+
     }
 
     public void clearConstShot() {
         constShots = new ArrayList<>();
     }
 
-    public void drawEnemy(SpriteBatch batch) {
-        batch.draw(texture, x, y);
+    public void drawEnemy(SpriteBatch batch, int time) {
+        if (time % 30 < 15) {
+            batch.draw(texture1, x, y);
+        } else {
+            batch.draw(texture2, x, y);
+        }
     }
 
     public void dispose() {
-        texture.dispose();
+        texture1.dispose();
+        texture2.dispose();
     }
 
     public int getHealth() {
@@ -122,22 +142,6 @@ public class Enemy {
 
     public void setHealth(int newHealth) {
         this.health = newHealth;
-    }
-
-    public float getLength() {
-        return length;
-    }
-
-    public void setLength(float length) {
-        this.length = length;
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
     }
 
     public void setX(float x) {
@@ -163,8 +167,6 @@ public class Enemy {
     public float getVelY() {
         return velY;
     }
-
-    //public Rectangle getHitbox() { return hitbox; }
 
     public Circle getHitbox() { return hitbox; }
 

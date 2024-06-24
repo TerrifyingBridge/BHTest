@@ -15,6 +15,8 @@ public class BHGame extends Game {
 	public AssetManager assetManager;
 
 	public MenuScreen menuScreen;
+
+	private int difficulty;
 	
 	@Override
 	public void create () {
@@ -26,6 +28,8 @@ public class BHGame extends Game {
 
 		//setScreen(new Level1(this, camera));
 		Gdx.input.setInputProcessor(new InputHandler());
+
+		difficulty = 1;
 	}
 
 	@Override
@@ -37,5 +41,9 @@ public class BHGame extends Game {
 	public void dispose () {
 		super.dispose();
 		assetManager.dispose();
+	}
+
+	public int getDifficulty() {
+		return difficulty;
 	}
 }

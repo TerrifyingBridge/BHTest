@@ -68,14 +68,14 @@ public class Level1 implements Screen {
 
         //Segments go here
         if (time == 100) {
-            segment0();
+            segment1();
         }
 
         batch.begin();
 
         bulletHandler.drawBullets(batch);
         player.renderPlayer(batch, time);
-        enemyHandler.drawEnemies(batch);
+        enemyHandler.drawEnemies(batch, time);
 
         batch.end();
         HUD.drawHUD(renderer, batch);
@@ -119,15 +119,18 @@ public class Level1 implements Screen {
 
     public void segment1 () {
         for (int i = 0; i < 5; i++) {
-            Enemy temp = new Enemy(Utility.boxToStandardX(-10 + i*10), Utility.boxToStandardY(110), 25, 0,0,50);
-            temp.addConstPath(Utility.boxToStandardX(20*i + 10), Utility.boxToStandardY(90), 1 + i);
-            temp.addWait(100 + i*5);
+            Enemy temp = new Enemy(Utility.boxToStandardX(20*i + 10), Utility.boxToStandardY(110), 0,0,10, Enemy.EnemyType.basicSpider);
+            temp.addConstPath(Utility.boxToStandardX(20*i + 10), Utility.boxToStandardY(90), 1);
+            Path tempPath = Utility.nullPath(temp, 150);
+            tempPath.setConstShot(new ConstShot(60, (int) (Math.random()*30), 0, -5));
+            temp.addPath(tempPath);
+            temp.addConstPath(Utility.boxToStandardX(20*i + 10), Utility.boxToStandardY(-30), 0.5f);
             enemyHandler.addEnemy(temp);
         }
     }
 
     public void segment0() {
-        Enemy temp = new Enemy(Utility.boxToStandardX(-10 + 20), Utility.boxToStandardY(110), 25, 0,0,50);
+        Enemy temp = new Enemy(Utility.boxToStandardX(-10 + 20), Utility.boxToStandardY(110), 0,0,50, Enemy.EnemyType.basicSpider);
         temp.addConstPath(Utility.boxToStandardX(20 + 10), Utility.boxToStandardY(90), 1);
         temp.addWait(60);
         Path path = new Path(temp, Utility.boxToStandardX(50), Utility.boxToStandardY(50), 1);

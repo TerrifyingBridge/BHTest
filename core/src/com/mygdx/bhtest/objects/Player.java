@@ -7,10 +7,7 @@ import com.mygdx.bhtest.BHGame;
 import com.mygdx.bhtest.HUD;
 import com.mygdx.bhtest.handler.InputHandler;
 
-public class Player {
-    private float x;
-    private float y;
-    private final float length;
+public class Player extends GameObject{
     private final int velocity;
     private final Circle hitbox;
 
@@ -27,9 +24,7 @@ public class Player {
     private final Texture texture2;
 
     public Player(float x, float y, float length, int velocity, int lives, int bombs) {
-        this.x = x;
-        this.y = y;
-        this.length = length;
+        super(x, y, length);
         this.velocity = velocity;
         this.lives = lives;
         this.bombs = bombs;
@@ -37,9 +32,9 @@ public class Player {
 
         float xCenter = x + 12.5f;
         float yCenter = y + 12.5f;
-        
+
         this.hitbox = new Circle(xCenter, yCenter, length/2);
-        
+
         bombDelay = 0;
         bomb = false;
         respawnDelay = 0;
@@ -146,18 +141,6 @@ public class Player {
         texture2.dispose();
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public float getLength() {
-        return length;
-    }
-
     public void setScore(int score) {
         this.score = score;
     }
@@ -172,10 +155,6 @@ public class Player {
 
     public int getLives() {
         return lives;
-    }
-
-    public void setBombs(int bombs) {
-        this.bombs = bombs;
     }
 
     public boolean canBomb() {

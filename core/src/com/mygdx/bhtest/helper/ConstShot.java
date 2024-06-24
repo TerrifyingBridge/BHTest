@@ -1,10 +1,10 @@
 package com.mygdx.bhtest.helper;
 
 public class ConstShot {
-    private int shotDelay;
-    private int curShotDelay;
-    private float bulVelX;
-    private float bulVelY;
+    protected int shotDelay;
+    protected int curShotDelay;
+    protected float bulVelX;
+    protected float bulVelY;
 
     public ConstShot(int shotDelay, int curShotDelay, float velX, float velY){
         this.shotDelay = shotDelay;
